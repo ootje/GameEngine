@@ -1,115 +1,206 @@
 #include "MiniginPCH.h"
 #include "InputManager.h"
 
+#include <windows.h>
+#include <xinput.h>
+
+#pragma comment(lib,"XInput.lib")
+#pragma comment(lib,"Xinput9_1_0.lib")
+//#include <memory>
+#include <vector>
+#include "Command.h"
+
+namespace dae
+{
+	enum class ControllerButton
+	{
+		ButtonA = XINPUT_GAMEPAD_A,
+		ButtonB = XINPUT_GAMEPAD_B,
+		ButtonX = XINPUT_GAMEPAD_X,
+		ButtonY = XINPUT_GAMEPAD_Y,
+		ButtonStart = XINPUT_GAMEPAD_START,
+		ButtonBack = XINPUT_GAMEPAD_BACK,
+		ButtonLeftThumb = XINPUT_GAMEPAD_LEFT_THUMB,
+		ButtonRightThumb = XINPUT_GAMEPAD_RIGHT_THUMB,
+		ButtonDPadUp = XINPUT_GAMEPAD_DPAD_UP,
+		ButtonDPadDown = XINPUT_GAMEPAD_DPAD_DOWN,
+		ButtonDPadLeft = XINPUT_GAMEPAD_DPAD_LEFT,
+		ButtonDpadRight = XINPUT_GAMEPAD_DPAD_RIGHT,
+		ButtonLeftShoulder = XINPUT_GAMEPAD_LEFT_SHOULDER,
+		ButtonRightShoulder = XINPUT_GAMEPAD_RIGHT_SHOULDER,
+		ButtonMax
+	};
+
+	ControllerButton static ConvertFromCB(CB button)
+	{
+		switch (button)
+		{
+		case CB::ButtonA:
+			return ControllerButton::ButtonA;
+		case CB::ButtonB:
+			return ControllerButton::ButtonB;
+		case CB::ButtonX:
+			return ControllerButton::ButtonX;
+		case CB::ButtonY:
+			return ControllerButton::ButtonY;
+		case CB::ButtonDPadUp:
+			return ControllerButton::ButtonDPadUp;
+		case CB::ButtonDPadDown:
+			return ControllerButton::ButtonDPadDown;
+		case CB::ButtonDPadLeft:
+			return ControllerButton::ButtonDPadLeft;
+		case CB::ButtonDpadRight:
+			return ControllerButton::ButtonDpadRight;
+		case CB::ButtonRightShoulder:
+			return ControllerButton::ButtonRightShoulder;
+		case CB::ButtonRightThumb:
+			return ControllerButton::ButtonRightThumb;
+		case CB::ButtonLeftShoulder:
+			return ControllerButton::ButtonLeftShoulder;
+		case CB::ButtonLeftThumb:
+			return ControllerButton::ButtonLeftThumb;
+		case CB::ButtonStart:
+			return ControllerButton::ButtonStart;
+		case CB::ButtonBack:
+			return ControllerButton::ButtonBack;
+		default:
+			return ControllerButton::ButtonMax;
+		}
+	}
+
+	struct CButton
+	{
+		CButton(ControllerButton targetButton)
+		{
+			button = targetButton;
+			isPressed = false;
+			isDown = false;
+			pCommand = nullptr;
+		}
+		~CButton()
+		{
+			if (pCommand != nullptr)
+			{
+				delete(pCommand);
+				pCommand = nullptr;
+			}
+		}
+		ControllerButton button;
+		bool isPressed;
+		bool isDown;
+		Command* pCommand;
+	};
+
+	class InputManager_Impl final
+	{
+	public:
+		InputManager_Impl()
+		{
+			int i = (int)ControllerButton::ButtonY;
+			while (true)
+			{
+				i = (int)ControllerButton(i >> 1);
+				if (i == 0X0400 || i == 0x0800)
+				{
+					continue;
+				}
+				m_ButtonsVector.push_back(CButton(ControllerButton(i)));
+				if (i == 1)
+				{
+					break;
+				}
+			}
+
+			m_pInput = new XINPUT_STATE();
+		}
+		~InputManager_Impl()
+		{
+			delete(m_pInput);
+		}
+		bool ProcessInput()
+		{
+			// todo: read the input
+			if (XInputGetState(0, m_pInput) == ERROR_DEVICE_NOT_CONNECTED)
+			{
+				//return;
+			}
+			WORD wButtons = m_pInput->Gamepad.wButtons;
+			HandleInput(wButtons);
+
+			return !IsPressed(ControllerButton::ButtonBack);
+		}
+		bool IsPressed(ControllerButton button) const
+		{
+			auto iterator = std::find_if(m_ButtonsVector.begin(), m_ButtonsVector.end(), [&button](const CButton& targetButton) {return targetButton.button == button; });
+			return iterator->isPressed;
+		}
+		void AddCommand(Command* pNewCommand, ControllerButton cButton)
+		{
+			auto iterator = std::find_if(m_ButtonsVector.begin(), m_ButtonsVector.end(), [&cButton](const CButton& targetButton) {return targetButton.button == cButton; });
+			iterator->pCommand = pNewCommand;
+		}
+	private:
+		void HandleInput(WORD wButton)
+		{
+			for (auto& element : m_ButtonsVector)
+			{
+				HandleButton(element, wButton);
+				if (element.isPressed)
+				{
+					if (element.pCommand != nullptr)
+					{
+						element.pCommand->Execute();
+					}
+				}
+			}
+		}
+		void HandleButton(CButton& cButton, WORD wButton)
+		{
+			if (((int)cButton.button & wButton) != 0)
+			{
+				if (cButton.isPressed || cButton.isDown)
+				{
+					if (cButton.isPressed)
+					{
+						cButton.isDown = true;
+						cButton.isPressed = false;
+					}
+				}
+				else
+				{
+					cButton.isPressed = true;
+				}
+			}
+			else
+			{
+				cButton.isPressed = false;
+				cButton.isDown = false;
+			}
+		}
+		
+		std::vector<CButton> m_ButtonsVector;
+		XINPUT_STATE* m_pInput;
+	};
+}
+
 dae::InputManager::InputManager()
 {
-	for (int i = 0; i < (int)ControllerButton::ButtonMax; i++)
-	{
-		m_ButtonsVector.push_back(CButton(ControllerButton(i)));
-	}
-	m_pInput = new XINPUT_STATE();
+	m_Impl = new InputManager_Impl();
 }
 
 dae::InputManager::~InputManager()
 {
-	delete(m_pInput);
+	delete(m_Impl);
 }
-
 bool dae::InputManager::ProcessInput()
 {
-	// todo: read the input
-	if (XInputGetState(0, m_pInput) == ERROR_DEVICE_NOT_CONNECTED)
-	{
-		//return;
-	}
-	WORD wButtons = m_pInput->Gamepad.wButtons;
-	InputManager::HandleInput(wButtons);
-
-	return !IsPressed(ControllerButton::ButtonX);
+	return m_Impl->ProcessInput();
 }
-
-bool dae::InputManager::IsPressed(ControllerButton button) const
+bool dae::InputManager::IsPressed(CB button) const
 {
-	auto iterator = std::find_if(m_ButtonsVector.begin(), m_ButtonsVector.end(), [&button](const CButton& targetButton) {return targetButton.button == button; });
-	return iterator->isPressed;
+	return m_Impl->IsPressed(ConvertFromCB(button));
 }
-
-void dae::InputManager::AddCommand(Command* pNewCommand, ControllerButton cButton)
+void dae::InputManager::AddCommand(Command* pNewCommand, CB cButton)
 {
-	auto iterator = std::find_if(m_ButtonsVector.begin(), m_ButtonsVector.end(), [&cButton](const CButton& targetButton) {return targetButton.button == cButton; });
-	iterator->pCommand = pNewCommand;
+	m_Impl->AddCommand(pNewCommand, ConvertFromCB(cButton));
 }
-
-void dae::InputManager::HandleInput(WORD wButton)
-{
-	InputManager::HandleButton(XINPUT_GAMEPAD_A, ControllerButton::ButtonA, wButton);
-	InputManager::HandleButton(XINPUT_GAMEPAD_B, ControllerButton::ButtonB, wButton);
-	InputManager::HandleButton(XINPUT_GAMEPAD_X, ControllerButton::ButtonX, wButton);
-	InputManager::HandleButton(XINPUT_GAMEPAD_Y, ControllerButton::ButtonY, wButton);
-	InputManager::HandleButton(XINPUT_GAMEPAD_DPAD_RIGHT, ControllerButton::ButtonDpadRight, wButton);
-	InputManager::HandleButton(XINPUT_GAMEPAD_DPAD_LEFT, ControllerButton::ButtonDPadLeft, wButton);
-	InputManager::HandleButton(XINPUT_GAMEPAD_DPAD_UP, ControllerButton::ButtonDPadUp, wButton);
-	InputManager::HandleButton(XINPUT_GAMEPAD_DPAD_DOWN, ControllerButton::ButtonDPadDown, wButton);
-
-	for (int i = 0; i < (int)ControllerButton::ButtonMax; i++)
-	{
-		if (m_ButtonsVector[i].isPressed)
-		{
-			if (m_ButtonsVector[i].pCommand != nullptr)
-			{
-				m_ButtonsVector[i].pCommand->Execute();
-			}
-		}
-	}
-}
-
-void dae::InputManager::HandleButton(int bitmask, ControllerButton cButton, WORD wButton)
-{
-	if ((bitmask & wButton) != 0)
-	{
-		if (m_ButtonsVector[int(cButton)].isPressed || m_ButtonsVector[int(cButton)].isDown)
-		{
-			if (m_ButtonsVector[int(cButton)].isPressed)
-			{
-				m_ButtonsVector[int(cButton)].isDown = true;
-				m_ButtonsVector[int(cButton)].isPressed = false;
-			}
-		}
-		else
-		{
-			m_ButtonsVector[int(cButton)].isPressed = true;
-		}
-	}
-	else
-	{
-		m_ButtonsVector[int(cButton)].isPressed = false;
-		m_ButtonsVector[int(cButton)].isDown = false;
-	}
-}
-
-//bool dae::InputManager::IsPressed(ControllerButton button) const
-//{
-//	WORD wButton = XINPUT_GAMEPAD_A;
-//	
-//	// todo: return whether the given button is pressed or not.
-//	switch (button)
-//	{
-//	case dae::ControllerButton::ButtonA:
-//		wButton = XINPUT_GAMEPAD_A;
-//		break;
-//	case dae::ControllerButton::ButtonB:
-//		wButton = XINPUT_GAMEPAD_B;
-//		break;
-//	case dae::ControllerButton::ButtonX:
-//		wButton = XINPUT_GAMEPAD_X;
-//		break;
-//	case dae::ControllerButton::ButtonY:
-//		wButton = XINPUT_GAMEPAD_Y;
-//		break;
-//	default:
-//		break;
-//	}
-//
-//	bool result = (m_WordButtons & wButton) != 0;
-//	return result;
-//}

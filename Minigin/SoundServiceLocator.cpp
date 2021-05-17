@@ -1,20 +1,21 @@
 #include "MiniginPCH.h"
 #include "SoundServiceLocator.h"
 
-NullSoundSystem SoundServiceLocator::m_NullSoundSystem;
-SoundSystem* SoundServiceLocator::m_pSoundsystem = &m_NullSoundSystem;
+dae::NullSoundSystem dae::SoundServiceLocator::m_NullSoundSystem;
+dae::SoundSystem* dae::SoundServiceLocator::m_pSoundsystem = &m_NullSoundSystem;
 
-SoundServiceLocator::~SoundServiceLocator()
+dae::SoundServiceLocator::~SoundServiceLocator()
 {
 	delete(m_pSoundsystem);
 	m_pSoundsystem = nullptr;
 }
 
-void SoundServiceLocator::SetSoundSystem(SoundSystem* pNewSoundSystem)
+void dae::SoundServiceLocator::SetSoundSystem(SoundSystem* pNewSoundSystem)
 {
 	m_pSoundsystem = pNewSoundSystem;
 }
-SoundSystem& SoundServiceLocator::GetSoundSystem()
+
+dae::SoundSystem& dae::SoundServiceLocator::GetSoundSystem()
 {
 	return *m_pSoundsystem;
 }

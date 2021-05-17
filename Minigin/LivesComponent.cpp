@@ -2,7 +2,7 @@
 #include "LivesComponent.h"
 
 
-LivesComponent::LivesComponent(TextComponent* pTextComp,Observer* pObserver)
+LivesComponent::LivesComponent(TextComponent* pTextComp, dae::Observer* pObserver)
 	:m_Lives{100}
 {
 	m_pText = pTextComp;

@@ -2,15 +2,18 @@
 #include "SoundSystem.h"
 
 
-class SoundServiceLocator final
+namespace dae
 {
-	static SoundSystem* m_pSoundsystem;
-	static NullSoundSystem m_NullSoundSystem;
+	class SoundServiceLocator final
+	{
+		static SoundSystem* m_pSoundsystem;
+		static NullSoundSystem m_NullSoundSystem;
 	
-public:
-	static void SetSoundSystem(SoundSystem* pNewSoundSystem);
-	static SoundSystem& GetSoundSystem();
+	public:
+		static void SetSoundSystem(SoundSystem* pNewSoundSystem);
+		static SoundSystem& GetSoundSystem();
 
-	~SoundServiceLocator();
-};
+		~SoundServiceLocator();
+	};
+}
 

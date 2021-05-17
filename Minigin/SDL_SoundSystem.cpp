@@ -4,18 +4,18 @@
 #include "audio.h"
 #include "audio.c"
 
-SDL_Sound::SDL_Sound(const std::string& path, int volume)
+dae::SDL_Sound::SDL_Sound(const std::string& path, int volume)
 	:m_Path(path)
 	, m_Volume(volume)
 {
 }
-void SDL_Sound::Play()
+void dae::SDL_Sound::Play()
 {
 	playSound(m_Path.c_str(), m_Volume);
 }
 
 
-SDL_SoundSystem::SDL_SoundSystem()
+dae::SDL_SoundSystem::SDL_SoundSystem()
 	:m_Mutex{}
 {
 	m_PlayQue = std::queue<SDL_Sound>();
@@ -23,14 +23,14 @@ SDL_SoundSystem::SDL_SoundSystem()
 	m_Muted = false;
 	initAudio();
 }
-SDL_SoundSystem::~SDL_SoundSystem()
+dae::SDL_SoundSystem::~SDL_SoundSystem()
 {
 	if (m_SoundThread.joinable())
 	{
 		m_SoundThread.join();
 	}
 }
-void SDL_SoundSystem::Update()
+void dae::SDL_SoundSystem::Update()
 {
 	do
 	{
@@ -44,7 +44,7 @@ void SDL_SoundSystem::Update()
 		sound.Play();
 	} while (true);//!m_PlayQue.empty());
 }
-void SDL_SoundSystem::PlaySound(const std::string& path, int volume)
+void dae::SDL_SoundSystem::PlaySound(const std::string& path, int volume)
 {
 	SDL_Sound newSound = SDL_Sound(path, volume);
 	std::lock_guard<std::mutex> lock{ m_Mutex };
@@ -52,7 +52,7 @@ void SDL_SoundSystem::PlaySound(const std::string& path, int volume)
 	m_Condition.notify_one();
 }
 
-void SDL_SoundSystem::SetMuted(bool isMuted)
+void dae::SDL_SoundSystem::SetMuted(bool isMuted)
 {
 	m_Muted = isMuted;
 }

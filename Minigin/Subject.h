@@ -1,21 +1,24 @@
 #pragma once
 #include "Observer.h"
 
-class Subject final
+namespace dae
 {
-public:
-	Subject();
-	~Subject();
+	class Subject final
+	{
+	public:
+		Subject();
+		~Subject();
 
-	void Attach(Observer* observer);
-	void Notify(dae::Event event);
+		void Attach(Observer* observer);
+		void Notify(dae::Event event);
 
-	Subject(const Subject& other) = delete;
-	Subject(Subject&& other) = delete;
-	Subject& operator=(const Subject& other) = delete;
-	Subject& operator=(Subject&& other) = delete;
+		Subject(const Subject& other) = delete;
+		Subject(Subject&& other) = delete;
+		Subject& operator=(const Subject& other) = delete;
+		Subject& operator=(Subject&& other) = delete;
 
-private:
-	Observer* m_pObserver = nullptr;
-};
+	private:
+		Observer* m_pObserver = nullptr;
+	};
+}
 

@@ -8,8 +8,8 @@ public:
 	TextComponent(const std::string& text, const std::shared_ptr<dae::Font>& font, float x, float y);
 	virtual ~TextComponent();
 
-	virtual void Update(float) override;
-	virtual void Render() const override;
+	void Update(float) override;
+	void Render() const override;
 
 	void SetText(const std::string& text);
 

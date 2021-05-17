@@ -6,7 +6,7 @@
 class ScoreComponent : public BaseComponent
 {
 public:
-	ScoreComponent(TextComponent* pTextComp, Observer* pObserver);
+	ScoreComponent(TextComponent* pTextComp, dae::Observer* pObserver);
 	~ScoreComponent();
 
 	void Update(float dt) override;
@@ -15,6 +15,6 @@ public:
 private:
 	int m_Score;
 	TextComponent* m_pText;
-	Observer* m_pObserver;
+	dae::Observer* m_pObserver;
 };
 

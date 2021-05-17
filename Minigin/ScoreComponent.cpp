@@ -2,7 +2,7 @@
 #include "ScoreComponent.h"
 
 
-ScoreComponent::ScoreComponent(TextComponent* pTextComp, Observer* pObserver)
+ScoreComponent::ScoreComponent(TextComponent* pTextComp, dae::Observer* pObserver)
 	:m_Score{ 0 }
 {
 	m_pText = pTextComp;

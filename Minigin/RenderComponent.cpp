@@ -4,7 +4,7 @@
 #include "Texture2D.h"
 #include "ResourceManager.h"
 
-RenderComponent::RenderComponent(const std::string& texturePath, float x, float y, float width, float height)
+dae::RenderComponent::RenderComponent(const std::string& texturePath, float x, float y, float width, float height)
 	:m_X{x}
 	,m_Y{y}
 	,m_Width{width}
@@ -12,7 +12,7 @@ RenderComponent::RenderComponent(const std::string& texturePath, float x, float 
 {
 	m_pTexture = dae::ResourceManager::GetInstance().LoadTexture(texturePath);
 }
-RenderComponent::RenderComponent(const std::string& texturePath, float x, float y)
+dae::RenderComponent::RenderComponent(const std::string& texturePath, float x, float y)
 	:m_X{ x }
 	, m_Y{ y }
 	, m_Width{ 0.f }
@@ -20,17 +20,17 @@ RenderComponent::RenderComponent(const std::string& texturePath, float x, float 
 {
 	m_pTexture = dae::ResourceManager::GetInstance().LoadTexture(texturePath);
 }
-RenderComponent::~RenderComponent()
+dae::RenderComponent::~RenderComponent()
 {
 
 }
 
-void RenderComponent::Update(float)
+void dae::RenderComponent::Update(float)
 {
 
 }
 
-void RenderComponent::Render() const
+void dae::RenderComponent::Render() const
 {
 	if (m_Width == 0.f || m_Height == 0.f)
 		dae::Renderer::GetInstance().RenderTexture(*m_pTexture.get(), m_X, m_Y);

@@ -3,54 +3,57 @@
 #include "Qbert.h"
 #include "SoundSystem.h"
 
-// For now this is fine but will be different files
-class Command
+namespace dae
 {
-public:
-	Command() {};
-	virtual ~Command() {};
-	virtual void Execute() = 0;
-	virtual void Undo() = 0;
-};
-
-class Die final : public Command
-{
-public:
-	Die(Qbert* qbert) { qBert = qbert; };
-	~Die() override {};
-	void Undo() override {};
-	void Execute() override
+	class Command
 	{
-		qBert->Die();
-	}
-private:
-	Qbert* qBert;
-};
+	public:
+		Command() {};
+		virtual ~Command() {};
+		virtual void Execute() = 0;
+		virtual void Undo() = 0;
+	};
+}
 
-class Point25 final : public Command
-{
-public:
-	Point25(Qbert* qbert) { qBert = qbert; };
-	~Point25() override {};
-	void Undo() override {};
-	void Execute() override
+	/*class Die final : public Command
 	{
-		qBert->GetPoint();
-	}
-private:
-	Qbert* qBert;
-};
+	public:
+		Die(Qbert* qbert) { qBert = qbert; };
+		~Die() override {};
+		void Undo() override {};
+		void Execute() override
+		{
+			qBert->Die();
+		}
+	private:
+		Qbert* qBert;
+	};
 
-class BasicSound final : public Command
-{
-public:
-	BasicSound(SoundSystem* pSoundSystem) { m_pSoundSystem = pSoundSystem; };
-	~BasicSound() override {};
-	void Undo() override {};
-	void Execute() override
+	class Point25 final : public Command
 	{
-		m_pSoundSystem->PlaySound("../Data/door1.wav",50);
-	}
-private:
-	SoundSystem* m_pSoundSystem;
-};
+	public:
+		Point25(Qbert* qbert) { qBert = qbert; };
+		~Point25() override {};
+		void Undo() override {};
+		void Execute() override
+		{
+			qBert->GetPoint();
+		}
+	private:
+		Qbert* qBert;
+	};
+
+	class BasicSound final : public Command
+	{
+	public:
+		BasicSound(SoundSystem* pSoundSystem) { m_pSoundSystem = pSoundSystem; };
+		~BasicSound() override {};
+		void Undo() override {};
+		void Execute() override
+		{
+			m_pSoundSystem->PlaySound("../Data/door1.wav",50);
+		}
+	private:
+		SoundSystem* m_pSoundSystem;
+	};
+}*/
