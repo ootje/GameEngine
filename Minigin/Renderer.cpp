@@ -66,7 +66,7 @@ void dae::Renderer::Render() const
 		ImGui::Text("");
 		ImGui::Text("Dpadleft for sound");
 		ImGui::Text("XButton to quit");
-		ImGui::SetWindowPos(ImVec2(250, 250));
+		ImGui::SetWindowPos(ImVec2(400, 250));
 		ImGui::End();
 	}
 	ImGui::Render();

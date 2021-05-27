@@ -22,7 +22,7 @@ dae::RenderComponent::RenderComponent(const std::string& texturePath, float x, f
 }
 dae::RenderComponent::~RenderComponent()
 {
-
+	
 }
 
 void dae::RenderComponent::Update(float)
@@ -37,3 +37,11 @@ void dae::RenderComponent::Render() const
 	else
 		dae::Renderer::GetInstance().RenderTexture(*m_pTexture.get(),m_X,m_Y,m_Width,m_Height);
 }
+
+void dae::RenderComponent::ChangePosition(float x, float y)
+{
+	m_X = x;
+	m_Y = y;
+}
+
+

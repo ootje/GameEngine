@@ -3,7 +3,7 @@
 #include "TextComponent.h"
 #include "Observer.h"
 
-class ScoreComponent : public BaseComponent
+class ScoreComponent : public dae::BaseComponent
 {
 public:
 	ScoreComponent(TextComponent* pTextComp, dae::Observer* pObserver);

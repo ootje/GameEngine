@@ -5,6 +5,7 @@
 dae::Texture2D::~Texture2D()
 {
 	SDL_DestroyTexture(m_Texture);
+	//m_Texture = nullptr;
 }
 
 SDL_Texture* dae::Texture2D::GetSDLTexture() const

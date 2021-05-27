@@ -21,17 +21,25 @@ namespace qbert
 	enum class expandedComponentID
 	{
 		tile = 5,
+		qbert = 6,
 	};
 	
 	struct position
 	{
 		float x;
 		float y;
+
+		/*inline position operator+(position&& other) const
+		{
+			position output{ 0,0 };
+			output.x = x + other.x;
+			output.y = y + other.y;
+			return output;
+		}*/
 	};
-
 	
-	void AddTileComponents(std::shared_ptr<dae::GameObject> object,const std::string& color, float middleX, float middleY, float size,int width, int i);
-
-	//int PositionToIdConverter(float x, float y);
 	position IdToPositionConverter(int id);
+
+	bool IsValidIdPosition(int id);
+	bool IsOnTeleport(int id);
 }

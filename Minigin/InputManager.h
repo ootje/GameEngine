@@ -1,4 +1,5 @@
 #pragma once
+#include "Singleton.h"
 
 namespace dae
 {
@@ -20,12 +21,10 @@ namespace dae
 		ButtonDPadLeft,
 		ButtonDpadRight,
 		ButtonLeftShoulder,
-		ButtonRightShoulder,
-		ButtonMax
-		//todo: add the other buttons
+		ButtonRightShoulder
 	};
 	
-	class InputManager final
+	class InputManager final : public Singleton<InputManager>
 	{
 	public:
 		InputManager();
@@ -35,6 +34,7 @@ namespace dae
 		void AddCommand(Command* pNewCommand, CB cButton);
 
 	private:
+		friend class Singleton<InputManager>;
 		InputManager_Impl* m_Impl;
 		
 	};

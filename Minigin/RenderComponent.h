@@ -14,6 +14,8 @@ namespace dae
 		virtual void Update(float) override;
 		virtual void Render() const override;
 
+		void ChangePosition(float x, float y);
+		
 		RenderComponent(const RenderComponent& other) = delete;
 		RenderComponent(RenderComponent&& other) = delete;
 		RenderComponent& operator=(const RenderComponent& other) = delete;

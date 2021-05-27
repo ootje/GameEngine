@@ -1,4 +1,5 @@
 #include <Minigin.h>
+#include "vld.h"
 #include "LevelManager.h"
 
 int main(int, char* []) {

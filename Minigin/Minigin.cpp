@@ -46,8 +46,6 @@ void dae::Minigin::Initialize()
 	}
 
 	Renderer::GetInstance().Init(m_Window);
-
-	m_pInputManager = new dae::InputManager();
 	ResourceManager::GetInstance().Init("../Data/");
 }
 
@@ -166,7 +164,6 @@ void dae::Minigin::LoadGame() const
 void dae::Minigin::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
-	delete(m_pInputManager);
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
 	SDL_Quit();
@@ -196,7 +193,7 @@ void dae::Minigin::Run()
 			float elapsed = std::chrono::duration<float>(current - lastTime).count();
 			//std::cout << elapsed << '\n';
 
-			doContinue = m_pInputManager->ProcessInput();
+			doContinue = InputManager::GetInstance().ProcessInput();
 
 			sceneManager.Update(elapsed);
 			renderer.Render();

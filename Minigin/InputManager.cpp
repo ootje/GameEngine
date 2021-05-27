@@ -99,16 +99,17 @@ namespace dae
 			int i = (int)ControllerButton::ButtonY;
 			while (true)
 			{
-				i = (int)ControllerButton(i >> 1);
-				if (i == 0X0400 || i == 0x0800)
-				{
-					continue;
-				}
-				m_ButtonsVector.push_back(CButton(ControllerButton(i)));
-				if (i == 1)
+				if (i == 0)
 				{
 					break;
 				}
+				if (i == 0X0400 || i == 0x0800)
+				{
+					i = (int)ControllerButton(i >> 1);
+					continue;
+				}
+				m_ButtonsVector.push_back(CButton(ControllerButton(i)));
+				i = (int)ControllerButton(i >> 1);
 			}
 
 			m_pInput = new XINPUT_STATE();
@@ -137,7 +138,10 @@ namespace dae
 		void AddCommand(Command* pNewCommand, ControllerButton cButton)
 		{
 			auto iterator = std::find_if(m_ButtonsVector.begin(), m_ButtonsVector.end(), [&cButton](const CButton& targetButton) {return targetButton.button == cButton; });
-			iterator->pCommand = pNewCommand;
+			if (iterator != m_ButtonsVector.end())
+			{
+				iterator->pCommand = pNewCommand;
+			}
 		}
 	private:
 		void HandleInput(WORD wButton)

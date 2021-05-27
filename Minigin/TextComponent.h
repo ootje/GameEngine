@@ -2,7 +2,7 @@
 #include "BaseComponent.h"
 #include "TextObject.h"
 
-class TextComponent final : public BaseComponent
+class TextComponent final : public dae::BaseComponent
 {
 public:
 	TextComponent(const std::string& text, const std::shared_ptr<dae::Font>& font, float x, float y);

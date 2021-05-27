@@ -4,7 +4,7 @@
 
 namespace qbert
 {
-	class TileComponent final : public BaseComponent
+	class TileComponent final : public dae::BaseComponent
 	{
 	public:
 		TileComponent(int id,int maxLandings = 1,bool resetOnOverflow = false);

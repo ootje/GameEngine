@@ -2,7 +2,7 @@
 //#include "BaseComponent.h"
 #include "TextComponent.h"
 
-class FPSComponent final : public BaseComponent
+class FPSComponent final : public dae::BaseComponent
 {
 public:
 	FPSComponent(const std::string& text, const std::shared_ptr<dae::Font>& font, float x, float y);

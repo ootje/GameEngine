@@ -16,6 +16,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{3ce1cea9-a091-4ec6-a012-0accee0dac0b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Qbert">
+      <UniqueIdentifier>{1f2b3822-972a-486f-a5bb-73b2bf0f9d4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -30,6 +33,21 @@
     <ClCompile Include="Helpers.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="StateMachine.cpp">
+      <Filter>Qbert</Filter>
+    </ClCompile>
+    <ClCompile Include="QbertTransitions.cpp">
+      <Filter>Qbert</Filter>
+    </ClCompile>
+    <ClCompile Include="QbertStates.cpp">
+      <Filter>Qbert</Filter>
+    </ClCompile>
+    <ClCompile Include="QbertComponent.cpp">
+      <Filter>Qbert</Filter>
+    </ClCompile>
+    <ClCompile Include="QbertCommands.cpp">
+      <Filter>Qbert</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelManager.h">
@@ -40,6 +58,24 @@
     </ClInclude>
     <ClInclude Include="Helpers.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QbertComponent.h">
+      <Filter>Qbert</Filter>
+    </ClInclude>
+    <ClInclude Include="QbertCommands.h">
+      <Filter>Qbert</Filter>
+    </ClInclude>
+    <ClInclude Include="QbertTransitions.h">
+      <Filter>Qbert</Filter>
+    </ClInclude>
+    <ClInclude Include="QbertStates.h">
+      <Filter>Qbert</Filter>
+    </ClInclude>
+    <ClInclude Include="StateMachine.h">
+      <Filter>Qbert</Filter>
+    </ClInclude>
+    <ClInclude Include="EBlackboard.h">
+      <Filter>Qbert</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

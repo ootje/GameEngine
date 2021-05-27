@@ -5,9 +5,12 @@
 
 dae::GameObject::~GameObject()
 {
-	for (auto element : m_pComponents)
+	for (std::pair<BaseComponent*,int> element : m_pComponents)
 	{
-		delete(element.first);
+		auto* temp = element.first;
+		element.first = nullptr;
+		delete(temp);
+		temp = nullptr;
 	}
 }
 
@@ -35,7 +38,7 @@ void dae::GameObject::AddComponent(BaseComponent* pComp, int id)
 	m_pComponents.insert(std::make_pair(pComp,id));
 }
 
-BaseComponent* dae::GameObject::GetComponent(int id) const
+dae::BaseComponent* dae::GameObject::GetComponent(int id) const
 {
 	auto it = std::find_if(m_pComponents.begin(), m_pComponents.end(), [id](std::pair<BaseComponent*, int> pair) {return pair.second == id; });
 	if (it != m_pComponents.end())
@@ -45,7 +48,7 @@ BaseComponent* dae::GameObject::GetComponent(int id) const
 	return nullptr;
 }
 
-std::vector<BaseComponent*> dae::GameObject::GetComponents(int id)const
+std::vector<dae::BaseComponent*> dae::GameObject::GetComponents(int id)const
 {
 	std::vector<BaseComponent*> output{};
 
