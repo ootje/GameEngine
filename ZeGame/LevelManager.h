@@ -4,7 +4,7 @@
 #include <vector>
 
 #include "Singleton.h"
-
+#include "Helpers.h"
 
 namespace dae {
 	class GameObject;
@@ -28,12 +28,13 @@ namespace qbert
 	public:
 		void LoadLevel();
 		const LevelData& GetLevelData() const;
+		void UpdateTile(id tileId);
 
 	private:
 		friend class Singleton<LevelManager>;
 		LevelManager() = default;
 
-		void AddTileComponents(dae::Scene& scene, const std::string& color, float middleX, float middleY, float size, int width, int i);
+		void AddTileComponents(dae::Scene& scene, int colorVar, float middleX, float middleY, float size, id tileId);
 		
 		std::vector<std::shared_ptr<dae::GameObject>> m_TileVector;
 		std::shared_ptr<dae::GameObject> m_Qbert;

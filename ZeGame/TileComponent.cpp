@@ -1,11 +1,12 @@
 #include "TileComponent.h"
+#include "TileRenderComponent.h"
 
-
-qbert::TileComponent::TileComponent(int id, int maxLandings, bool resetOnOverflow)
+qbert::TileComponent::TileComponent(id id,TileRenderComponent* renderComp,int maxLandings, bool resetOnOverflow)
 	:m_Id(id)
 	,m_Activations(0)
 	,m_MaxActivations(maxLandings)
 	,m_ResetOnLanding(resetOnOverflow)
+	,m_RenderComponent(renderComp)
 {
 	
 }
@@ -30,14 +31,17 @@ void qbert::TileComponent::GetJumpedOn()
 		if (m_ResetOnLanding)
 		{
 			m_Activations = 0;
+			m_RenderComponent->ChangeTileColor();
 		}
 	}
 	else
 	{
 		m_Activations++;
+		m_RenderComponent->ChangeTileColor();
 	}
 }
-int qbert::TileComponent::GetId() const
+
+qbert::id qbert::TileComponent::GetId() const
 {
 	return m_Id;
 }

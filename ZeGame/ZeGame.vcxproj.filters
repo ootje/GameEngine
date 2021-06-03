@@ -48,6 +48,9 @@
     <ClCompile Include="QbertCommands.cpp">
       <Filter>Qbert</Filter>
     </ClCompile>
+    <ClCompile Include="TileRenderComponent.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelManager.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="EBlackboard.h">
       <Filter>Qbert</Filter>
+    </ClInclude>
+    <ClInclude Include="TileRenderComponent.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

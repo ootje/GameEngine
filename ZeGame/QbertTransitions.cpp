@@ -1,19 +1,19 @@
 #include "QbertTransitions.h"
 #include "Helpers.h"
 
-qbert::IdleToJumping::IdleToJumping(Elite::Blackboard* pB)
+qbert::ToJumping::ToJumping(Elite::Blackboard* pB)
 	:Transition(pB)
 {
 	
 }
-qbert::IdleToJumping::~IdleToJumping()
+qbert::ToJumping::~ToJumping()
 {
 	
 }
-bool qbert::IdleToJumping::ChangeState()
+bool qbert::ToJumping::ChangeState()
 {
-	int* newIdPos = nullptr;
-	int* oldIdPos = nullptr;
+	id* newIdPos = nullptr;
+	id* oldIdPos = nullptr;
 	bool check = m_pB->GetData("OldIdPos", oldIdPos);
 	check = check && m_pB->GetData("NewIdPos", newIdPos);
 	
@@ -22,52 +22,22 @@ bool qbert::IdleToJumping::ChangeState()
 		return false;
 	}
 	
-	return *newIdPos != *oldIdPos;
+	return (newIdPos->x != oldIdPos->x) || (newIdPos->y != oldIdPos->y);
 }
 
-qbert::JumpingToIdle::JumpingToIdle(Elite::Blackboard* pB)
+qbert::ToIdle::ToIdle(Elite::Blackboard* pB)
 	:Transition(pB)
 {
 	
 }
-qbert::JumpingToIdle::~JumpingToIdle()
+qbert::ToIdle::~ToIdle()
 {
 	
 }
-bool qbert::JumpingToIdle::ChangeState()
+bool qbert::ToIdle::ChangeState()
 {
-	int* newIdPos = nullptr;
-	int* oldIdPos = nullptr;
-	bool check = m_pB->GetData("OldIdPos", oldIdPos);
-	check = check && m_pB->GetData("NewIdPos", newIdPos);
-
-	if (!check)
-	{
-		return false;
-	}
-	if (*newIdPos == *oldIdPos)
-	{
-		if (IsValidIdPosition(*newIdPos))
-		{
-			return true;
-		}
-	}
-	return false;
-}
-
-qbert::JumpingToTeleport::JumpingToTeleport(Elite::Blackboard* pB)
-	:Transition(pB)
-{
-	
-}
-qbert::JumpingToTeleport::~JumpingToTeleport()
-{
-	
-}
-bool qbert::JumpingToTeleport::ChangeState()
-{
-	int* newIdPos = nullptr;
-	int* oldIdPos = nullptr;
+	id* newIdPos = nullptr;
+	id* oldIdPos = nullptr;
 	bool check = m_pB->GetData("OldIdPos", oldIdPos);
 	check = check && m_pB->GetData("NewIdPos", newIdPos);
 
@@ -77,27 +47,24 @@ bool qbert::JumpingToTeleport::ChangeState()
 	}
 	if (*newIdPos == *oldIdPos)
 	{
-		if (IsOnTeleport(*oldIdPos))
-		{
-			return true;
-		}
+		return IsValidIdPosition(*newIdPos);
 	}
 	return false;
 }
 
-qbert::TeleportToIdle::TeleportToIdle(Elite::Blackboard* pB)
+qbert::ToTeleport::ToTeleport(Elite::Blackboard* pB)
 	:Transition(pB)
 {
 	
 }
-qbert::TeleportToIdle::~TeleportToIdle()
+qbert::ToTeleport::~ToTeleport()
 {
 	
 }
-bool qbert::TeleportToIdle::ChangeState()
+bool qbert::ToTeleport::ChangeState()
 {
-	int* newIdPos = nullptr;
-	int* oldIdPos = nullptr;
+	id* newIdPos = nullptr;
+	id* oldIdPos = nullptr;
 	bool check = m_pB->GetData("OldIdPos", oldIdPos);
 	check = check && m_pB->GetData("NewIdPos", newIdPos);
 
@@ -107,25 +74,8 @@ bool qbert::TeleportToIdle::ChangeState()
 	}
 	if (*newIdPos == *oldIdPos)
 	{
-		if (IsValidIdPosition(*oldIdPos))
-		{
-			return true;
-		}
+		return IsOnTeleport(*oldIdPos);
 	}
-	return false;
-}
-
-qbert::JumpToDeath::JumpToDeath(Elite::Blackboard* pB)
-	:Transition(pB)
-{
-	
-}
-qbert::JumpToDeath::~JumpToDeath()
-{
-	
-}
-bool qbert::JumpToDeath::ChangeState()
-{
 	return false;
 }
 
@@ -140,5 +90,18 @@ qbert::ToDeath::~ToDeath()
 }
 bool qbert::ToDeath::ChangeState()
 {
+	id* newIdPos = nullptr;
+	id* oldIdPos = nullptr;
+	bool check = m_pB->GetData("OldIdPos", oldIdPos);
+	check = check && m_pB->GetData("NewIdPos", newIdPos);
+
+	if (!check)
+	{
+		return false;
+	}
+	if (*newIdPos == *oldIdPos)
+	{
+		return !IsValidIdPosition(*newIdPos); // return NOT ValidPosition
+	}
 	return false;
 }

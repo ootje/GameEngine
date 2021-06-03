@@ -17,18 +17,18 @@ namespace qbert
 	class QbertComponent : public dae::BaseComponent
 	{
 	public:
-		QbertComponent(dae::RenderComponent* pRender, int startId, float width);
+		QbertComponent(dae::RenderComponent* pRender, id startId, float width);
 		~QbertComponent() override;
 
 		void Update(float dt) override;
 		void Render() const override {};
 		
-		void Move(int movePosition);
+		void Move(id movePosition);
 	private:
 		void InitializeFSM();
 		
-		int m_IdNewPosition;
-		int m_IdOldPosition;
+		id m_IdNewPosition;
+		id m_IdOldPosition;
 		position m_Position;
 		dae::RenderComponent* m_pRenderComp;
 		FSM* m_pFSM;

@@ -3,43 +3,27 @@
 
 namespace qbert
 {
-	class IdleToJumping final : public Transition
+	class ToJumping final : public Transition
 	{
 	public:
-		IdleToJumping(Elite::Blackboard* pB);
-		~IdleToJumping() override;
+		ToJumping(Elite::Blackboard* pB);
+		~ToJumping() override;
 		bool ChangeState() override;
 	};
 
-	class JumpingToIdle final :public Transition
+	class ToIdle final :public Transition
 	{
 	public:
-		JumpingToIdle(Elite::Blackboard* pB);
-		~JumpingToIdle() override;
+		ToIdle(Elite::Blackboard* pB);
+		~ToIdle() override;
 		bool ChangeState() override;
 	};
 
-	class JumpingToTeleport final : public Transition
+	class ToTeleport final : public Transition
 	{
 	public:
-		JumpingToTeleport(Elite::Blackboard* pB);
-		~JumpingToTeleport() override;
-		bool ChangeState() override;
-	};
-
-	class TeleportToIdle final : public Transition
-	{
-	public:
-		TeleportToIdle(Elite::Blackboard* pB);
-		~TeleportToIdle() override;
-		bool ChangeState() override;
-	};
-
-	class JumpToDeath final : public Transition
-	{
-	public:
-		JumpToDeath(Elite::Blackboard* pB);
-		~JumpToDeath() override;
+		ToTeleport(Elite::Blackboard* pB);
+		~ToTeleport() override;
 		bool ChangeState() override;
 	};
 

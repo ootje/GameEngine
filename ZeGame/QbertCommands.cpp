@@ -3,7 +3,7 @@
 #include "QbertComponent.h"
 
 #pragma region Move
-qbert::Move::Move(QbertComponent* pQbertComp,int movePosition)
+qbert::Move::Move(QbertComponent* pQbertComp,id movePosition)
 	:m_MovePosition(movePosition)
 {
 	m_pQbert = pQbertComp;

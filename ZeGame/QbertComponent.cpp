@@ -13,7 +13,7 @@ enum class EQbertStates : int
 };
 
 
-qbert::QbertComponent::QbertComponent(dae::RenderComponent* pRender, int startId, float width)
+qbert::QbertComponent::QbertComponent(dae::RenderComponent* pRender, id startId, float width)
 	:m_IdNewPosition(startId)
 	,m_IdOldPosition(startId)
 	,m_pRenderComp(pRender)
@@ -42,20 +42,21 @@ void qbert::QbertComponent::InitializeFSM()
 
 	m_pFSM = new FSM(idle);
 	
-	auto idleToJump = std::make_shared<IdleToJumping>(IdleToJumping(m_pBb));
-	auto jumpToIdle = std::make_shared<JumpingToIdle>(JumpingToIdle(m_pBb));
-	m_pFSM->AddTransition(idle, jumping, idleToJump);
-	m_pFSM->AddTransition(jumping, idle, jumpToIdle);
+	auto toJump = std::make_shared<ToJumping>(ToJumping(m_pBb));
+	auto toIdle = std::make_shared<ToIdle>(ToIdle(m_pBb));
+	m_pFSM->AddTransition(idle, jumping, toJump);
+	m_pFSM->AddTransition(jumping, idle, toIdle);
 
-	auto jumpToTeleport = std::make_shared<JumpingToTeleport>(JumpingToTeleport(m_pBb));
-	auto teleportToIdle = std::make_shared<TeleportToIdle>(TeleportToIdle(m_pBb));
-	m_pFSM->AddTransition(jumping, teleport, jumpToTeleport);
-	m_pFSM->AddTransition(teleport, idle, teleportToIdle);
+	auto toTeleport = std::make_shared<ToTeleport>(ToTeleport(m_pBb));
+	m_pFSM->AddTransition(jumping, teleport, toTeleport);
+	m_pFSM->AddTransition(teleport, idle, toIdle);
 
 	auto toDeath = std::make_shared<ToDeath>(ToDeath(m_pBb));
 	m_pFSM->AddTransition(idle, death, toDeath);
 	m_pFSM->AddTransition(jumping, death, toDeath);
 	m_pFSM->AddTransition(teleport, death, toDeath);
+
+	m_pFSM->AddTransition(death, idle, toIdle);
 }
 
 qbert::QbertComponent::~QbertComponent()
@@ -75,10 +76,11 @@ void qbert::QbertComponent::Update(float dt)
 }
 
 
-void qbert::QbertComponent::Move(int movePosition)
+void qbert::QbertComponent::Move(id movePosition)
 {
 	if (m_pFSM->GetCurrentStateId() == (int)EQbertStates::idle)
 	{
-		m_IdNewPosition = m_IdOldPosition + movePosition;
+		m_IdNewPosition.x = m_IdOldPosition.x + movePosition.x;
+		m_IdNewPosition.y = m_IdOldPosition.y + movePosition.y;
 	}
 }

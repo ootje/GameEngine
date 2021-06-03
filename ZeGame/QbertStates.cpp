@@ -1,6 +1,7 @@
 #include "QbertStates.h"
 
 #include <iostream>
+#include "LevelManager.h"
 
 qbert::QbertIdle::QbertIdle(Elite::Blackboard* pB, int id)
 	:State(pB,id)
@@ -36,8 +37,9 @@ qbert::QbertJumping::~QbertJumping()
 void qbert::QbertJumping::OnEnter()
 {
 	std::cout << "Entering QbertJumping\n";
-	int* newIdpos = nullptr;
-	int* oldIdpos = nullptr;
+	m_DeltaTime = 0.0f;
+	id* newIdpos = nullptr;
+	id* oldIdpos = nullptr;
 	position* qbertPosition = nullptr;
 	float* qbertWidth = nullptr;
 	bool check = m_pB->GetData("NewIdPos", newIdpos);
@@ -57,8 +59,9 @@ void qbert::QbertJumping::OnEnter()
 }
 void qbert::QbertJumping::Update(float dt)
 {
-	int* newIdpos = nullptr;
-	int* oldIdpos = nullptr;
+	m_DeltaTime += dt;
+	id* newIdpos = nullptr;
+	id* oldIdpos = nullptr;
 	position* qbertPosition = nullptr;
 	bool check = m_pB->GetData("NewIdPos", newIdpos);
 	check = check && m_pB->GetData("OldIdPos", oldIdpos);
@@ -70,16 +73,22 @@ void qbert::QbertJumping::Update(float dt)
 	qbertPosition->x += m_Direction.x * dt;
 	qbertPosition->y += m_Direction.y * dt;
 	float distance = abs(m_Target.x - qbertPosition->x) + abs(m_Target.y - qbertPosition->y);
-	if (distance < 1.0f)
+	if (distance < 1.0f || m_DeltaTime > 1.0f)
 	{
 		*qbertPosition = m_Target;
 		*oldIdpos = *newIdpos;
+		return;
 	}
-	
 }
 void qbert::QbertJumping::OnExit()
 {
-	
+	id* newIdpos = nullptr;
+	bool check = m_pB->GetData("NewIdPos", newIdpos);
+	if (!check)
+	{
+		return;
+	}
+	LevelManager::GetInstance().UpdateTile(*newIdpos);
 }
 
 qbert::QbertDeath::QbertDeath(Elite::Blackboard* pB, int id)
@@ -94,9 +103,31 @@ qbert::QbertDeath::~QbertDeath()
 void qbert::QbertDeath::OnEnter()
 {
 	std::cout << "Entering QbertDeath\n";
+	
+	
 }
 void qbert::QbertDeath::Update(float)
 {
+	id* newIdpos = nullptr;
+	id* oldIdpos = nullptr;
+	float* qbertWidth = nullptr;
+	position* qbertPosition = nullptr;
+	bool check = m_pB->GetData("NewIdPos", newIdpos);
+	check = check && m_pB->GetData("OldIdPos", oldIdpos);
+	check = check && m_pB->GetData("QbertPos", qbertPosition);
+	check = check && m_pB->GetData("QbertWidth", qbertWidth);
+	if (!check)
+	{
+		return;
+	}
+	id maxId{};
+	maxId.x = 1;
+	maxId.y = LevelManager::GetInstance().GetLevelData().blocksWide-1;
+	position newPos = IdToPositionConverter(maxId);
+	newPos.x += *qbertWidth / 2.0f;
+	*qbertPosition = newPos;
+	*oldIdpos = maxId;
+	*newIdpos = maxId;
 	
 }
 void qbert::QbertDeath::OnExit()

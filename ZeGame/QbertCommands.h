@@ -1,5 +1,6 @@
 #pragma once
 #include "Command.h"
+#include "Helpers.h"
 
 
 namespace qbert
@@ -9,13 +10,13 @@ namespace qbert
 	class Move : public dae::Command
 	{
 	public:
-		Move(QbertComponent* pQbertComp, int movePosition);
+		Move(QbertComponent* pQbertComp, id movePosition);
 		~Move() override;
 		void Execute() override;
 		void Undo() override;
 	private:
 		QbertComponent* m_pQbert;
-		int m_MovePosition;
+		id m_MovePosition;
 	};
 	/*class MoveRightUp : public dae::Command
 	{

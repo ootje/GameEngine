@@ -6,34 +6,35 @@
 #include "TileComponent.h"
 
 
-qbert::position qbert::IdToPositionConverter(int id)
+qbert::position qbert::IdToPositionConverter(id id)
 {
 	const LevelData& levelData = LevelManager::GetInstance().GetLevelData();
 	float x = levelData.baseX;
 	float y = levelData.baseY;
 
-	int height = (id) / levelData.heightOffset;
-	int width = (id) % levelData.heightOffset;
-	x += width * levelData.tileSize;
-	x += height / 2.0f * levelData.tileSize;
+	x += float(id.x) * levelData.tileSize;
+	x += float(id.y) / 2.0f * levelData.tileSize;
 	y -= 0.80f * levelData.tileSize;
-	y -= 0.750f * height * levelData.tileSize;
+	y -= 0.750f * float(id.y) * levelData.tileSize;
 	
 	return qbert::position{ x,y };
 }
 
-bool qbert::IsOnTeleport(int id)
+bool qbert::IsOnTeleport(id id)
 {
 
-	return id != id;
+	return id.x != id.x;
 }
 
 
-bool qbert::IsValidIdPosition(int id)
+bool qbert::IsValidIdPosition(id testId)
 {
-	const int width = LevelManager::GetInstance().GetLevelData().blocksWide;
-	const int offset = LevelManager::GetInstance().GetLevelData().heightOffset;
-	const int maxId = offset*(width-1);
+	auto data = LevelManager::GetInstance().GetLevelData();
+	const int width = data.blocksWide;
+	const int offset = data.heightOffset;
+	id maxId{};
+	maxId.x = 1;
+	maxId.y = data.blocksWide - 1;
 	
 	// Check if on platform
 
@@ -41,15 +42,15 @@ bool qbert::IsValidIdPosition(int id)
 	{
 		return true;
 	}*/
-	if (id < 0 || id > maxId)
+	if (testId.y == 0 || maxId < testId)
 	{
 		return false;
 	}
-	if ((id/(offset/2)%2 != 0))
+	if (testId.x == 0)
 	{
 		return false;
 	}
-	if ((id/ offset)+(id% offset) >= width)
+	if (testId.x+testId.y > width)
 	{
 		return false;
 	}

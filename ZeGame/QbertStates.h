@@ -25,6 +25,7 @@ namespace qbert
 	private:
 		position m_Direction;
 		position m_Target;
+		float m_DeltaTime;
 	};
 
 	class QbertDeath final : public State
