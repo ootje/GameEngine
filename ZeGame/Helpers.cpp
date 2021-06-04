@@ -38,10 +38,10 @@ bool qbert::IsValidIdPosition(id testId)
 	
 	// Check if on platform
 
-	/*if (IsOnTeleport(id))
+	if (IsOnTeleport(testId))
 	{
 		return true;
-	}*/
+	}
 	if (testId.y == 0 || maxId < testId)
 	{
 		return false;

@@ -1,18 +1,18 @@
 #include "MiniginPCH.h"
 #include "FPSComponent.h"
 
-FPSComponent::FPSComponent(const std::string& text, const std::shared_ptr<dae::Font>& font, float x, float y)
+dae::FPSComponent::FPSComponent(const std::string& text, const std::shared_ptr<dae::Font>& font, float x, float y)
 	:m_TextComponent{text,font,x,y}
 	, m_FPS{0}
 	,m_Timer{0.f}
 {
 }
-FPSComponent::~FPSComponent()
+dae::FPSComponent::~FPSComponent()
 {
 
 }
 
-void FPSComponent::Update(float dt)
+void dae::FPSComponent::Update(float dt)
 {
 	int fps = int(1 / dt);
 	std::string text = std::to_string(fps);
@@ -30,12 +30,12 @@ void FPSComponent::Update(float dt)
 	}*/
 	m_TextComponent.Update(dt); //BAD
 }
-void FPSComponent::Render() const
+void dae::FPSComponent::Render() const
 {
 	m_TextComponent.Render();
 }
 
-int FPSComponent::GetFPS() const
+int dae::FPSComponent::GetFPS() const
 {
 	return m_FPS;
 }

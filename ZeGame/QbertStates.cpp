@@ -124,7 +124,7 @@ void qbert::QbertDeath::Update(float)
 	maxId.x = 1;
 	maxId.y = LevelManager::GetInstance().GetLevelData().blocksWide-1;
 	position newPos = IdToPositionConverter(maxId);
-	newPos.x += *qbertWidth / 2.0f;
+	newPos.x -= *qbertWidth / 2.0f;
 	*qbertPosition = newPos;
 	*oldIdpos = maxId;
 	*newIdpos = maxId;

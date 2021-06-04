@@ -22,7 +22,18 @@ namespace qbert
 	{
 		tile = 5,
 		tileRender = 6,
-		qbert = 7
+		qbert = 7,
+		score = 8,
+		lives = 9
+	};
+
+	enum class qbertEvents
+	{
+		ADD_SCORE_25 = 1,
+		ADD_SCORE_50 = 2,
+		ADD_SCORE_300 = 3,
+		ADD_SCORE_500 = 4,
+		LOSE_LIFE = 5
 	};
 	
 	struct id

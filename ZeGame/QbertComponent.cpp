@@ -3,6 +3,7 @@
 #include "StateMachine.h"
 #include "QbertStates.h"
 #include "QbertTransitions.h"
+#include "Subject.h"
 
 enum class EQbertStates : int
 {
@@ -13,11 +14,13 @@ enum class EQbertStates : int
 };
 
 
-qbert::QbertComponent::QbertComponent(dae::RenderComponent* pRender, id startId, float width)
+qbert::QbertComponent::QbertComponent(dae::RenderComponent* pRender, id startId, float width, dae::Subject* pScore, dae::Subject* pLives)
 	:m_IdNewPosition(startId)
 	,m_IdOldPosition(startId)
 	,m_pRenderComp(pRender)
 	,m_Width(width)
+	,m_pLivesSubject(pLives)
+	,m_pScoreSubject(pScore)
 {
 	m_Position = IdToPositionConverter(startId);
 	m_Position.x -= width / 2.0f;
@@ -34,6 +37,7 @@ void qbert::QbertComponent::InitializeFSM()
 	m_pBb->AddData("NewIdPos", &m_IdNewPosition);
 	m_pBb->AddData("QbertPos", &m_Position);
 	m_pBb->AddData("QbertWidth", &m_Width);
+	m_pBb->AddData("QbertLives", &m_pLivesSubject);
 	
 	auto idle = std::make_shared<QbertIdle>(QbertIdle(m_pBb, (int)EQbertStates::idle));
 	auto jumping = std::make_shared<QbertJumping>(QbertJumping(m_pBb,(int)EQbertStates::jumping));
@@ -64,6 +68,8 @@ qbert::QbertComponent::~QbertComponent()
 	m_pRenderComp = nullptr;
 	delete(m_pFSM);
 	delete(m_pBb);
+	delete(m_pLivesSubject);
+	delete(m_pScoreSubject);
 }
 
 void qbert::QbertComponent::Update(float dt)

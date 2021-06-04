@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "GameObject.h"
 #include "Singleton.h"
 #include "Helpers.h"
 
@@ -29,7 +30,8 @@ namespace qbert
 		void LoadLevel();
 		const LevelData& GetLevelData() const;
 		void UpdateTile(id tileId);
-
+		id GetPlayerId() const;
+	
 	private:
 		friend class Singleton<LevelManager>;
 		LevelManager() = default;

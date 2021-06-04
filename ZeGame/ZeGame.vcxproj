@@ -175,28 +175,52 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CoilyBehaviour.cpp" />
+    <ClCompile Include="EnemyBehaviour.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="LevelManager.cpp" />
+    <ClCompile Include="LivesComponent.cpp" />
+    <ClCompile Include="LivesObserver.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerCoilyBehaviour.cpp" />
     <ClCompile Include="QbertCommands.cpp" />
     <ClCompile Include="QbertComponent.cpp" />
     <ClCompile Include="QbertStates.cpp" />
     <ClCompile Include="QbertTransitions.cpp" />
+    <ClCompile Include="ScoreComponent.cpp" />
+    <ClCompile Include="ScoreObserver.cpp" />
+    <ClCompile Include="SlickBehaviour.cpp" />
     <ClCompile Include="StateMachine.cpp" />
+    <ClCompile Include="TeleporterComponent.cpp" />
     <ClCompile Include="TileComponent.cpp" />
     <ClCompile Include="TileRenderComponent.cpp" />
+    <ClCompile Include="UggBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CoilyBehaviour.h" />
     <ClInclude Include="EBlackboard.h" />
+    <ClInclude Include="EnemyBehaviour.h" />
+    <ClInclude Include="EnemyComponent.h" />
+    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="LivesComponent.h" />
+    <ClInclude Include="LivesObserver.h" />
+    <ClInclude Include="PlayerCoilyBehaviour.h" />
     <ClInclude Include="QbertCommands.h" />
     <ClInclude Include="QbertComponent.h" />
     <ClInclude Include="QbertStates.h" />
     <ClInclude Include="QbertTransitions.h" />
+    <ClInclude Include="ScoreComponent.h" />
+    <ClInclude Include="ScoreObserver.h" />
+    <ClInclude Include="SlickBehaviour.h" />
     <ClInclude Include="StateMachine.h" />
+    <ClInclude Include="TeleporterComponent.h" />
     <ClInclude Include="TileComponent.h" />
     <ClInclude Include="TileRenderComponent.h" />
+    <ClInclude Include="UggBehaviour.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,7 @@
 #pragma once
+#include <string>
+#include <memory>
+
 #include "SceneObject.h"
 #include "Transform.h"
 

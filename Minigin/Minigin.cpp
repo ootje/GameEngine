@@ -10,8 +10,6 @@
 #include "TextObject.h"
 #include "GameObject.h"
 #include "Scene.h"
-#include "LivesComponent.h"
-#include "ScoreComponent.h"
 #include "Subject.h"
 #include "Qbert.h"
 #include "Command.h"

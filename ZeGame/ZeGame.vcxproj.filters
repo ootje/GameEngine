@@ -19,6 +19,12 @@
     <Filter Include="Qbert">
       <UniqueIdentifier>{1f2b3822-972a-486f-a5bb-73b2bf0f9d4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Score">
+      <UniqueIdentifier>{eca96881-1ad1-47ef-8dbb-758d0f5dc212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{02e3a6d7-a04b-4449-bbf8-00f8f5779ee2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,6 +57,42 @@
     <ClCompile Include="TileRenderComponent.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreObserver.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesObserver.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesComponent.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreComponent.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
+    <ClCompile Include="TeleporterComponent.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBehaviour.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyComponent.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="UggBehaviour.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="SlickBehaviour.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCoilyBehaviour.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="CoilyBehaviour.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="LevelManager.h">
@@ -82,6 +124,42 @@
     </ClInclude>
     <ClInclude Include="TileRenderComponent.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreObserver.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesObserver.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreComponent.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesComponent.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="TeleporterComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBehaviour.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyComponent.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="UggBehaviour.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="SlickBehaviour.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCoilyBehaviour.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="CoilyBehaviour.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

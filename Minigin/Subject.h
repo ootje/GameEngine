@@ -10,7 +10,7 @@ namespace dae
 		~Subject();
 
 		void Attach(Observer* observer);
-		void Notify(dae::Event event);
+		void Notify(BaseComponent* pEntityComp, int event);
 
 		Subject(const Subject& other) = delete;
 		Subject(Subject&& other) = delete;
