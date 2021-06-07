@@ -17,6 +17,8 @@ namespace qbert
 	private:
 		QbertComponent* m_pQbert;
 		id m_MovePosition;
+		//dae::SoundSystem* m_SoundSystem;
+		//const std::string& m_Path;
 	};
 	/*class MoveRightUp : public dae::Command
 	{

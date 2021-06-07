@@ -7,8 +7,9 @@ namespace qbert
 	{
 	public:
 		PlayerCoilyBehaviour() = default;
-		~PlayerCoilyBehaviour();
-		id CalculateNextMove(id currentId) const override;
+		~PlayerCoilyBehaviour(){};
+		id CalculateNextMove(id currentId) override { return currentId; };
+		int EventOnDeath() override { return -1; };
 	};
 }
 

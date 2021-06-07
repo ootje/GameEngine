@@ -8,7 +8,8 @@ namespace qbert
 	public:
 		UggBehaviour(bool moveLeftUp);
 		~UggBehaviour();
-		id CalculateNextMove(id currentId) const override;
+		id CalculateNextMove(id currentId) override;
+		int EventOnDeath() override;
 	private:
 		bool m_MoveUpLeft;//if false moverightup
 	};

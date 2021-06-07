@@ -24,7 +24,9 @@ namespace qbert
 		tileRender = 6,
 		qbert = 7,
 		score = 8,
-		lives = 9
+		lives = 9,
+		enemyComp = 10,
+		enemyMan = 11,
 	};
 
 	enum class qbertEvents
@@ -75,5 +77,7 @@ namespace qbert
 	position IdToPositionConverter(id testId);
 
 	bool IsValidIdPosition(id id);
+	bool IsValidIdPositionEnemy(id id);
+
 	bool IsOnTeleport(id id);
 }

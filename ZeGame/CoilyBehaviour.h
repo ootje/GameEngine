@@ -8,7 +8,8 @@ namespace qbert
 	public:
 		CoilyBehaviour();
 		~CoilyBehaviour() override;
-		id CalculateNextMove(id currentId) const override;
+		id CalculateNextMove(id currentId) override;
+		int EventOnDeath() override;
 	private:
 		bool m_HasTransformed;
 	};

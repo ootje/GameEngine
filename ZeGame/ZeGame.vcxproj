@@ -178,7 +178,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     <ClCompile Include="CoilyBehaviour.cpp" />
     <ClCompile Include="EnemyBehaviour.cpp" />
     <ClCompile Include="EnemyComponent.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="EnemyManagerComponent.cpp" />
     <ClCompile Include="Helpers.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="LivesComponent.cpp" />
@@ -203,7 +203,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     <ClInclude Include="EBlackboard.h" />
     <ClInclude Include="EnemyBehaviour.h" />
     <ClInclude Include="EnemyComponent.h" />
-    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="EnemyManagerComponent.h" />
     <ClInclude Include="Helpers.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="LivesComponent.h" />

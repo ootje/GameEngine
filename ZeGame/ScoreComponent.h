@@ -12,7 +12,7 @@ namespace qbert
 		ScoreComponent(dae::TextComponent* pTextComp, ScoreObserver* pObserver);
 		~ScoreComponent();
 
-
+		void Reset();
 		void AddScore(int score);
 		void Update(float dt) override;
 		void Render() const override;

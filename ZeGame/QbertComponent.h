@@ -26,6 +26,8 @@ namespace qbert
 		
 		void Move(id movePosition);
 		id GetOldId() const { return m_IdOldPosition; }
+
+		void Reset();
 	private:
 		void InitializeFSM();
 		
@@ -36,7 +38,8 @@ namespace qbert
 		FSM* m_pFSM;
 		Elite::Blackboard* m_pBb;
 		float m_Width;
-
+		bool m_IsDead;
+		
 		dae::Subject* m_pLivesSubject;
 		dae::Subject* m_pScoreSubject;
 	};

@@ -72,9 +72,6 @@
     <ClCompile Include="TeleporterComponent.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="EnemyBehaviour.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
@@ -91,6 +88,9 @@
       <Filter>Enemy</Filter>
     </ClCompile>
     <ClCompile Include="CoilyBehaviour.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManagerComponent.cpp">
       <Filter>Enemy</Filter>
     </ClCompile>
   </ItemGroup>
@@ -140,9 +140,6 @@
     <ClInclude Include="TeleporterComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="EnemyBehaviour.h">
       <Filter>Enemy</Filter>
     </ClInclude>
@@ -159,6 +156,9 @@
       <Filter>Enemy</Filter>
     </ClInclude>
     <ClInclude Include="CoilyBehaviour.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManagerComponent.h">
       <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>

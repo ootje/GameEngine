@@ -11,10 +11,10 @@ qbert::UggBehaviour::~UggBehaviour()
 	
 }
 
-qbert::id qbert::UggBehaviour::CalculateNextMove(id currentId) const
+qbert::id qbert::UggBehaviour::CalculateNextMove(id currentId)
 {
 	id output = currentId;
-	bool isXorY = bool(rand() % 1);
+	bool isXorY = bool(rand() % 2);
 	if (isXorY)
 	{
 		//X
@@ -42,5 +42,10 @@ qbert::id qbert::UggBehaviour::CalculateNextMove(id currentId) const
 	}
 	
 	return output;
+}
+
+int qbert::UggBehaviour::EventOnDeath()
+{
+	return -1;
 }
 

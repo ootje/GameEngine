@@ -1,4 +1,6 @@
 #include "QbertComponent.h"
+
+#include "LevelManager.h"
 #include "RenderComponent.h"
 #include "StateMachine.h"
 #include "QbertStates.h"
@@ -21,6 +23,7 @@ qbert::QbertComponent::QbertComponent(dae::RenderComponent* pRender, id startId,
 	,m_Width(width)
 	,m_pLivesSubject(pLives)
 	,m_pScoreSubject(pScore)
+	,m_IsDead(false)
 {
 	m_Position = IdToPositionConverter(startId);
 	m_Position.x -= width / 2.0f;
@@ -37,7 +40,8 @@ void qbert::QbertComponent::InitializeFSM()
 	m_pBb->AddData("NewIdPos", &m_IdNewPosition);
 	m_pBb->AddData("QbertPos", &m_Position);
 	m_pBb->AddData("QbertWidth", &m_Width);
-	m_pBb->AddData("QbertLives", &m_pLivesSubject);
+	m_pBb->AddData("QbertLives", m_pLivesSubject);
+	m_pBb->AddData("IsDead", &m_IsDead);
 	
 	auto idle = std::make_shared<QbertIdle>(QbertIdle(m_pBb, (int)EQbertStates::idle));
 	auto jumping = std::make_shared<QbertJumping>(QbertJumping(m_pBb,(int)EQbertStates::jumping));
@@ -58,7 +62,6 @@ void qbert::QbertComponent::InitializeFSM()
 	auto toDeath = std::make_shared<ToDeath>(ToDeath(m_pBb));
 	m_pFSM->AddTransition(idle, death, toDeath);
 	m_pFSM->AddTransition(jumping, death, toDeath);
-	m_pFSM->AddTransition(teleport, death, toDeath);
 
 	m_pFSM->AddTransition(death, idle, toIdle);
 }
@@ -74,7 +77,15 @@ qbert::QbertComponent::~QbertComponent()
 
 void qbert::QbertComponent::Update(float dt)
 {
+	if (LevelManager::GetInstance().HandleCollision(m_Position, m_Width, m_Width))
+	{
+		m_IsDead = true;
+	}
 	m_pFSM->Update(dt);
+	if (m_IsDead)
+	{
+		m_IsDead = false;
+	}
 	if (m_pFSM->GetCurrentStateId() != (int)EQbertStates::idle)
 	{
 		m_pRenderComp->ChangePosition(m_Position.x, m_Position.y);
@@ -89,4 +100,16 @@ void qbert::QbertComponent::Move(id movePosition)
 		m_IdNewPosition.x = m_IdOldPosition.x + movePosition.x;
 		m_IdNewPosition.y = m_IdOldPosition.y + movePosition.y;
 	}
+}
+
+void qbert::QbertComponent::Reset()
+{
+	id startId = id{ 1,LevelManager::GetInstance().GetLevelData().blocksWide - 1 };
+	m_IdOldPosition = startId;
+	m_IdNewPosition = startId;
+
+
+	m_Position = IdToPositionConverter(startId);
+	m_Position.x -= m_Width / 2.0f;
+	m_pRenderComp->ChangePosition(m_Position.x, m_Position.y);
 }

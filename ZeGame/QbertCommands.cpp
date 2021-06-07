@@ -5,6 +5,8 @@
 #pragma region Move
 qbert::Move::Move(QbertComponent* pQbertComp,id movePosition)
 	:m_MovePosition(movePosition)
+	//,m_SoundSystem(soundSystem)
+	//,m_Path(path)
 {
 	m_pQbert = pQbertComp;
 }
@@ -17,6 +19,7 @@ qbert::Move::~Move()
 void qbert::Move::Execute()
 {
 	m_pQbert->Move(m_MovePosition);
+	//m_SoundSystem->PlaySound(m_Path, 50);
 }
 
 void qbert::Move::Undo()

@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include "LevelManager.h"
+#include "LivesComponent.h"
+#include "Subject.h"
 
 qbert::QbertIdle::QbertIdle(Elite::Blackboard* pB, int id)
 	:State(pB,id)
@@ -112,10 +114,12 @@ void qbert::QbertDeath::Update(float)
 	id* oldIdpos = nullptr;
 	float* qbertWidth = nullptr;
 	position* qbertPosition = nullptr;
+	dae::Subject* livesComp = nullptr;
 	bool check = m_pB->GetData("NewIdPos", newIdpos);
 	check = check && m_pB->GetData("OldIdPos", oldIdpos);
 	check = check && m_pB->GetData("QbertPos", qbertPosition);
 	check = check && m_pB->GetData("QbertWidth", qbertWidth);
+	check = check && m_pB->GetData("QbertLives", livesComp);
 	if (!check)
 	{
 		return;
@@ -128,7 +132,7 @@ void qbert::QbertDeath::Update(float)
 	*qbertPosition = newPos;
 	*oldIdpos = maxId;
 	*newIdpos = maxId;
-	
+	livesComp->Notify(nullptr, (int)qbertEvents::LOSE_LIFE);
 }
 void qbert::QbertDeath::OnExit()
 {
@@ -147,10 +151,63 @@ qbert::QbertTeleporting::~QbertTeleporting()
 void qbert::QbertTeleporting::OnEnter()
 {
 	std::cout << "Entering QbertTeleporting\n";
+	id maxId{ 1,LevelManager::GetInstance().GetLevelData().blocksWide - 1 };
+
+	id* newIdpos = nullptr;
+	id* oldIdpos = nullptr;
+	float* qbertWidth = nullptr;
+	position* qbertPosition = nullptr;
+	bool check = m_pB->GetData("NewIdPos", newIdpos);
+	check = check && m_pB->GetData("OldIdPos", oldIdpos);
+	check = check && m_pB->GetData("QbertPos", qbertPosition);
+	check = check && m_pB->GetData("QbertWidth", qbertWidth);
+	if (!check)
+	{
+		return;
+	}
+	m_Target = IdToPositionConverter(maxId);
+	m_Target.x -= *qbertWidth / 2.0f;
+	*newIdpos = maxId;
+	m_MoveVertical = true;
+	LevelManager::GetInstance().ActivateTeleport(*oldIdpos);
 }
-void qbert::QbertTeleporting::Update(float)
+void qbert::QbertTeleporting::Update(float dt)
 {
-	
+	id* newIdpos = nullptr;
+	id* oldIdpos = nullptr;
+	float* qbertWidth = nullptr;
+	position* qbertPosition = nullptr;
+	bool check = m_pB->GetData("NewIdPos", newIdpos);
+	check = check && m_pB->GetData("OldIdPos", oldIdpos);
+	check = check && m_pB->GetData("QbertPos", qbertPosition);
+	check = check && m_pB->GetData("QbertWidth", qbertWidth);
+	if (!check)
+	{
+		return;
+	}
+	if (m_MoveVertical)
+	{
+		qbertPosition->y -= 100.f*dt;
+		if (qbertPosition->y < m_Target.y)
+		{
+			m_MoveVertical = false;
+			qbertPosition->y = m_Target.y;
+		}
+	}
+	else
+	{
+		float direction = (m_Target.x - qbertPosition->x) / abs(m_Target.x - qbertPosition->x);
+		float newX = qbertPosition->x + direction * 100.f * dt;
+		if (abs(m_Target.x-qbertPosition->x) < abs(m_Target.x-newX) )
+		{
+			*qbertPosition = m_Target;
+			*oldIdpos = *newIdpos;
+		}
+		else
+		{
+			qbertPosition->x = newX;
+		}
+	}
 }
 void qbert::QbertTeleporting::OnExit()
 {

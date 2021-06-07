@@ -19,14 +19,17 @@ namespace qbert
 		void Render() const override;
 
 		void GetJumpedOn();
+		void Deactivate();
 		id GetId() const;
 		bool IsComplete() const;
+		void Reset(int activations,bool reset, int colorOffset);
 	private:
 		id m_Id;
 		int m_Activations; // 0 is off, max is m_MaxActivations
 		int m_MaxActivations;
 		bool m_ResetOnLanding;
 		TileRenderComponent* m_RenderComponent;
+		int m_ColorOffset;
 	};
 }
 

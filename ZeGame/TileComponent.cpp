@@ -7,6 +7,7 @@ qbert::TileComponent::TileComponent(id id,TileRenderComponent* renderComp,int ma
 	,m_MaxActivations(maxLandings)
 	,m_ResetOnLanding(resetOnOverflow)
 	,m_RenderComponent(renderComp)
+	,m_ColorOffset(0)
 {
 	
 }
@@ -31,13 +32,13 @@ void qbert::TileComponent::GetJumpedOn()
 		if (m_ResetOnLanding)
 		{
 			m_Activations = 0;
-			m_RenderComponent->ChangeTileColor();
+			m_RenderComponent->ChangeTileColor(m_Activations+m_ColorOffset);
 		}
 	}
 	else
 	{
 		m_Activations++;
-		m_RenderComponent->ChangeTileColor();
+		m_RenderComponent->ChangeTileColor(m_Activations+m_ColorOffset);
 	}
 }
 
@@ -48,4 +49,22 @@ qbert::id qbert::TileComponent::GetId() const
 bool qbert::TileComponent::IsComplete() const
 {
 	return m_Activations == m_MaxActivations;
+}
+
+void qbert::TileComponent::Deactivate()
+{
+	if (m_Activations > 0)
+	{
+		m_Activations--;
+		m_RenderComponent->ChangeTileColor(m_Activations + m_ColorOffset);
+	}
+}
+
+void qbert::TileComponent::Reset(int activations, bool reset,int colorOffset)
+{
+	m_MaxActivations = activations;
+	m_ResetOnLanding = reset;
+	m_Activations = 0;
+	m_ColorOffset = colorOffset;
+	m_RenderComponent->ChangeTileColor(colorOffset);
 }

@@ -7,8 +7,9 @@ namespace qbert
 	{
 	public:
 		EnemyBehaviour() = default;
-		virtual ~EnemyBehaviour();
-		virtual id CalculateNextMove(id currentId) const = 0;
+		virtual ~EnemyBehaviour() {};
+		virtual id CalculateNextMove(id currentId) = 0;
+		virtual int EventOnDeath() = 0;
 	};
 }
 

@@ -1,6 +1,8 @@
 #include "LivesComponent.h"
 
 #include <string>
+
+#include "LevelManager.h"
 #include "LivesObserver.h"
 
 qbert::LivesComponent::LivesComponent(dae::TextComponent* pTextComp, LivesObserver* pObserver)
@@ -40,8 +42,16 @@ void qbert::LivesComponent::LoseLife()
 	m_pText->SetText(text);
 	if (m_Lives < 0)
 	{
-		
+		LevelManager::GetInstance().QbertDeath();
 		//something
 	}
 	
 }
+
+void qbert::LivesComponent::Reset()
+{
+	m_Lives = 3;
+	std::string text = "Lives: " + std::to_string(m_Lives);
+	m_pText->SetText(text);
+}
+

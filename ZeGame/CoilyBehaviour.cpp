@@ -14,12 +14,17 @@ qbert::CoilyBehaviour::~CoilyBehaviour()
 	
 }
 
-qbert::id qbert::CoilyBehaviour::CalculateNextMove(id currentId) const
+qbert::id qbert::CoilyBehaviour::CalculateNextMove(id currentId)
 {
 	id output = currentId;
 	if (!m_HasTransformed)
 	{
-		bool isRightDown = bool(rand() % 1);
+		if (currentId.y == 1)
+		{
+			m_HasTransformed = true;
+			return output;
+		}
+		bool isRightDown = bool(rand() % 2);
 		output.y -= 1;
 		if (isRightDown)
 		{
@@ -53,4 +58,8 @@ qbert::id qbert::CoilyBehaviour::CalculateNextMove(id currentId) const
 	return output;
 }
 
+int qbert::CoilyBehaviour::EventOnDeath()
+{
+	return (int)qbertEvents::ADD_SCORE_500;
+}
 

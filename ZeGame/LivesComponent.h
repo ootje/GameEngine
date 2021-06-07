@@ -13,6 +13,7 @@ namespace qbert
 		~LivesComponent();
 
 		void LoseLife();
+		void Reset();
 		
 		void Update(float dt) override;
 		void Render() const override;

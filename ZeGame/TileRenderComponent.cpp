@@ -7,7 +7,7 @@
 #include "Texture2D.h"
 
 
-qbert::TileRenderComponent::TileRenderComponent(int size, float x, float y, float width, float height, int colorOffset)
+qbert::TileRenderComponent::TileRenderComponent(int size, float x, float y, float width, float height)
 	:m_Size(size)
 	,m_Active(0)
 	,m_X(x)
@@ -15,7 +15,7 @@ qbert::TileRenderComponent::TileRenderComponent(int size, float x, float y, floa
 	,m_Width(width)
 	,m_Height(height)
 {
-	for (int i = 0 + colorOffset; i < size+colorOffset; i++)
+	for (int i = 0 ; i < 5; i++)
 	{
 		std::string path = "Cube_" + std::to_string(i) + ".png";
 		m_Textures.push_back(dae::ResourceManager::GetInstance().LoadTexture(path));
@@ -29,9 +29,9 @@ qbert::TileRenderComponent::~TileRenderComponent()
 	}
 }
 
-void qbert::TileRenderComponent::ChangeTileColor()
+void qbert::TileRenderComponent::ChangeTileColor(int activation)
 {
-	m_Active = (m_Active + 1) % m_Size;
+	m_Active = activation;
 }
 
 void qbert::TileRenderComponent::Update(float)

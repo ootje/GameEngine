@@ -47,7 +47,7 @@ bool qbert::ToIdle::ChangeState()
 	}
 	if (*newIdPos == *oldIdPos)
 	{
-		return IsValidIdPosition(*newIdPos);
+		return IsValidIdPositionEnemy(*newIdPos);
 	}
 	return false;
 }
@@ -92,12 +92,19 @@ bool qbert::ToDeath::ChangeState()
 {
 	id* newIdPos = nullptr;
 	id* oldIdPos = nullptr;
+	bool* isDead = nullptr;
 	bool check = m_pB->GetData("OldIdPos", oldIdPos);
 	check = check && m_pB->GetData("NewIdPos", newIdPos);
+	check = check && m_pB->GetData("IsDead", isDead);
 
 	if (!check)
 	{
 		return false;
+	}
+	if (*isDead)
+	{
+		*isDead = false;
+		return true;
 	}
 	if (*newIdPos == *oldIdPos)
 	{

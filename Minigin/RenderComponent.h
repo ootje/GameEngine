@@ -11,6 +11,7 @@ namespace dae
 		RenderComponent(const std::string& texturePath, float x, float y);
 		virtual ~RenderComponent();
 
+		void SetActive(bool isActive);
 		virtual void Update(float) override;
 		virtual void Render() const override;
 
@@ -26,6 +27,7 @@ namespace dae
 		float m_Y;
 		float m_Width;
 		float m_Height;
+		bool m_IsActive;
 	};
 }
 

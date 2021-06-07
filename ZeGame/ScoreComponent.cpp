@@ -39,3 +39,10 @@ void qbert::ScoreComponent::AddScore(int score)
 	std::string text = "Score: " + std::to_string(m_Score);
 	m_pText->SetText(text);
 }
+
+void qbert::ScoreComponent::Reset()
+{
+	m_Score = 0;
+	std::string text = "Score: " + std::to_string(m_Score);
+	m_pText->SetText(text);
+}

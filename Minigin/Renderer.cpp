@@ -54,19 +54,14 @@ void dae::Renderer::Render() const
 	if (true)
 	{
 		//ImGui::ShowDemoWindow();
-		ImGui::Begin("Demo window");
-		ImGui::SetWindowSize(ImVec2(250,300));
-		ImGui::Button("SinglePlayer");
-		ImGui::Button("Co-op");
-		ImGui::Button("Versus");
-		ImGui::Text("Abutton for Player1 Lives");
-		ImGui::Text("Bbutton for Player1 Score");
-		ImGui::Text("DpadUpbutton for Player2 Lives");
-		ImGui::Text("DpadDownbutton for Player2 Score");
-		ImGui::Text("");
-		ImGui::Text("Dpadleft for sound");
-		ImGui::Text("XButton to quit");
-		ImGui::SetWindowPos(ImVec2(400, 250));
+		ImGui::Begin("Controls");
+		ImGui::SetWindowSize(ImVec2(200,150));
+		ImGui::Text("Abutton for LeftDown");
+		ImGui::Text("Xbutton for LeftUp");
+		ImGui::Text("Bbutton for RightDown");
+		ImGui::Text("Ybutton for RightUp");
+		ImGui::Text("Backbutton to quit");
+		ImGui::SetWindowPos(ImVec2(400, 0));
 		ImGui::End();
 	}
 	ImGui::Render();

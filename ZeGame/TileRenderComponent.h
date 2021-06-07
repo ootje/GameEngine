@@ -13,13 +13,13 @@ namespace qbert
 	class TileRenderComponent : public dae::BaseComponent
 	{
 	public:
-		TileRenderComponent(int size, float x, float y ,float width, float height, int colorOffset = 0);
+		TileRenderComponent(int size, float x, float y ,float width, float height);
 		~TileRenderComponent() override;
 
 		void Update(float dt) override;
 		void Render() const override;
 		
-		void ChangeTileColor();
+		void ChangeTileColor(int activation);
 	
 	private:
 		int m_Active;

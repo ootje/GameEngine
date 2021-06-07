@@ -46,6 +46,9 @@ namespace qbert
 		void OnEnter() override;
 		void Update(float dt) override;
 		void OnExit() override;
+	private:
+		bool m_MoveVertical;
+		position m_Target;
 	};
 }
 

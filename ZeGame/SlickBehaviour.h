@@ -8,7 +8,8 @@ namespace qbert
 	public:
 		SlickBehaviour() = default;
 		~SlickBehaviour();
-		id CalculateNextMove(id currentId) const override;
+		id CalculateNextMove(id currentId) override;
+		int EventOnDeath() override;
 	};
 }
 

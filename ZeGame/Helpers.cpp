@@ -23,11 +23,22 @@ qbert::position qbert::IdToPositionConverter(id id)
 bool qbert::IsOnTeleport(id id)
 {
 
-	return id.x != id.x;
+	return LevelManager::GetInstance().IsOnTeleport(id);
 }
 
 
 bool qbert::IsValidIdPosition(id testId)
+{
+	// Check if on platform
+
+	if (IsOnTeleport(testId))
+	{
+		return true;
+	}
+	return IsValidIdPositionEnemy(testId);
+}
+
+bool qbert::IsValidIdPositionEnemy(id testId)
 {
 	auto data = LevelManager::GetInstance().GetLevelData();
 	const int width = data.blocksWide;
@@ -36,12 +47,6 @@ bool qbert::IsValidIdPosition(id testId)
 	maxId.x = 1;
 	maxId.y = data.blocksWide - 1;
 	
-	// Check if on platform
-
-	if (IsOnTeleport(testId))
-	{
-		return true;
-	}
 	if (testId.y == 0 || maxId < testId)
 	{
 		return false;
@@ -50,10 +55,10 @@ bool qbert::IsValidIdPosition(id testId)
 	{
 		return false;
 	}
-	if (testId.x+testId.y > width)
+	if (testId.x + testId.y > width)
 	{
 		return false;
 	}
-	
+
 	return true;
 }

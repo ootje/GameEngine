@@ -25,6 +25,12 @@ void qbert::ScoreObserver::OnNotify(dae::BaseComponent*, int event)
 	case qbertEvents::ADD_SCORE_50:
 		score = 50;
 		break;
+	case qbertEvents::ADD_SCORE_300:
+		score = 300;
+		break;
+	case qbertEvents::ADD_SCORE_500:
+		score = 500;
+		break;
 	}
 	m_pScoreComp->AddScore(score);
 }
