@@ -12,18 +12,18 @@ namespace dae {
 	class Scene;
 }
 
-struct LevelData
-{
-	int blocksWide;
-	int heightOffset;
-	float tileSize;
-	float baseX;
-	float baseY;
-	std::vector<int> teleportPositions;
-};
-
 namespace qbert
 {
+
+	struct LevelData
+	{
+		int blocksWide;
+		float tileSize;
+		float baseX;
+		float baseY;
+		std::vector<qbert::id> teleportPositions;
+	};
+	
 	class TeleporterComponent;
 	class LivesComponent;
 	class ScoreComponent;
@@ -34,7 +34,7 @@ namespace qbert
 	class LevelManager final : public dae::Singleton<LevelManager>
 	{
 	public:
-		void LoadLevel(int level = 1);
+		void LoadLevel(std::wstring path,int gameMode,int level = 1);
 		const LevelData& GetLevelData() const;
 		void UpdateTile(id tileId);
 		void RevertTile(id tileId);

@@ -1,5 +1,7 @@
 #include "SlickBehaviour.h"
 
+#include <cstdlib>
+
 qbert::SlickBehaviour::~SlickBehaviour()
 {
 	

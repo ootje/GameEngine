@@ -1,8 +1,6 @@
 #include "QbertStates.h"
 
-#include <iostream>
 #include "LevelManager.h"
-#include "LivesComponent.h"
 #include "Subject.h"
 
 qbert::QbertIdle::QbertIdle(Elite::Blackboard* pB, int id)
@@ -16,7 +14,7 @@ qbert::QbertIdle::~QbertIdle()
 }
 void qbert::QbertIdle::OnEnter()
 {
-	std::cout << "Entering QbertIdle\n";
+	//std::cout << "Entering QbertIdle\n";
 }
 void qbert::QbertIdle::Update(float)
 {
@@ -38,7 +36,7 @@ qbert::QbertJumping::~QbertJumping()
 }
 void qbert::QbertJumping::OnEnter()
 {
-	std::cout << "Entering QbertJumping\n";
+	//std::cout << "Entering QbertJumping\n";
 	m_DeltaTime = 0.0f;
 	id* newIdpos = nullptr;
 	id* oldIdpos = nullptr;
@@ -104,7 +102,7 @@ qbert::QbertDeath::~QbertDeath()
 }
 void qbert::QbertDeath::OnEnter()
 {
-	std::cout << "Entering QbertDeath\n";
+	//std::cout << "Entering QbertDeath\n";
 	
 	
 }
@@ -150,7 +148,7 @@ qbert::QbertTeleporting::~QbertTeleporting()
 }
 void qbert::QbertTeleporting::OnEnter()
 {
-	std::cout << "Entering QbertTeleporting\n";
+	//std::cout << "Entering QbertTeleporting\n";
 	id maxId{ 1,LevelManager::GetInstance().GetLevelData().blocksWide - 1 };
 
 	id* newIdpos = nullptr;

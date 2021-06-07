@@ -1,6 +1,8 @@
 #pragma once
 #include "BaseComponent.h"
 #include "Renderer.h"
+#include <string>
+#include <memory>
 
 namespace dae
 {
@@ -22,7 +24,7 @@ namespace dae
 		RenderComponent& operator=(const RenderComponent& other) = delete;
 		RenderComponent& operator=(RenderComponent&& other) = delete;
 	private:
-		std::shared_ptr<dae::Texture2D> m_pTexture = nullptr;
+		std::shared_ptr<Texture2D> m_pTexture = nullptr;
 		float m_X;
 		float m_Y;
 		float m_Width;

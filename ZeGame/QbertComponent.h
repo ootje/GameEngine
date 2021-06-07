@@ -15,7 +15,7 @@ namespace qbert
 {
 	class FSM;
 	
-	class QbertComponent : public dae::BaseComponent
+	class QbertComponent final : public dae::BaseComponent
 	{
 	public:
 		QbertComponent(dae::RenderComponent* pRender, id startId, float width, dae::Subject* pScore, dae::Subject* pLives);

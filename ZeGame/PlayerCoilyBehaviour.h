@@ -6,10 +6,12 @@ namespace qbert
 	class PlayerCoilyBehaviour final : public EnemyBehaviour
 	{
 	public:
-		PlayerCoilyBehaviour() = default;
+		PlayerCoilyBehaviour();
 		~PlayerCoilyBehaviour(){};
-		id CalculateNextMove(id currentId) override { return currentId; };
-		int EventOnDeath() override { return -1; };
+		id CalculateNextMove(id currentId) override;
+		int EventOnDeath() override;
+	private:
+		bool m_HasTransformed;
 	};
 }
 

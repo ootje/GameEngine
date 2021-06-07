@@ -1,6 +1,5 @@
 #pragma once
 #include <BaseComponent.h>
-#include <string>
 #include <vector>
 
 #include "Helpers.h"
@@ -10,10 +9,10 @@ namespace qbert
 {
 	class EnemyComponent;
 
-	class EnemyManagerComponent : public dae::BaseComponent
+	class EnemyManagerComponent final : public dae::BaseComponent
 	{
 	public:
-		EnemyManagerComponent(const std::string& fileName, dae::Scene& scene);
+		EnemyManagerComponent(int gameMode, dae::Scene& scene);
 		~EnemyManagerComponent();
 
 		void Update(float dt) override;

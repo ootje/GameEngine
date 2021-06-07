@@ -1,5 +1,7 @@
 #include "UggBehaviour.h"
 
+#include <cstdlib>
+
 qbert::UggBehaviour::UggBehaviour(bool moveLeftUp)
 	:m_MoveUpLeft(moveLeftUp)
 {

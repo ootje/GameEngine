@@ -38,7 +38,7 @@ namespace qbert
 		Elite::Blackboard* m_pB;
 	};
 
-	class FSM
+	class FSM final
 	{
 	public:
 		FSM(std::shared_ptr<State> pStartState);

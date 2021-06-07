@@ -10,7 +10,7 @@ namespace dae {
 
 namespace qbert
 {
-	class TileRenderComponent : public dae::BaseComponent
+	class TileRenderComponent final : public dae::BaseComponent
 	{
 	public:
 		TileRenderComponent(int size, float x, float y ,float width, float height);

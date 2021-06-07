@@ -4,7 +4,6 @@
 
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include "Texture2D.h"
 
 
 qbert::TileRenderComponent::TileRenderComponent(int size, float x, float y, float width, float height)

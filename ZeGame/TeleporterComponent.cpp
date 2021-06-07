@@ -37,7 +37,7 @@ void qbert::TeleporterComponent::Reset()
 	m_Available = true;
 	m_Moving = false;
 	m_Position = IdToPositionConverter(m_Id);
-	m_Renderer->ChangePosition(m_Position.x + m_Size / 2.0f, m_Position.y+m_Size);
+	m_Renderer->ChangePosition(m_Position.x - m_Size / 2.0f, m_Position.y+m_Size);
 	m_Renderer->SetActive(true);
 }
 

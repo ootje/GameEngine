@@ -2,6 +2,7 @@
 #include <string>
 
 #include "ScoreObserver.h"
+#include "TextComponent.h"
 
 qbert::ScoreComponent::ScoreComponent(dae::TextComponent* pTextComp, ScoreObserver* pObserver)
 	:m_Score{ 0 }

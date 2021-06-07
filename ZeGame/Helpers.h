@@ -1,16 +1,4 @@
 #pragma once
-#include <memory>
-#include <string>
-
-/*
-Components id
-base = 0
-render = 1
-text = 2
- */
-
-
-
 
 namespace dae {
 	class GameObject;

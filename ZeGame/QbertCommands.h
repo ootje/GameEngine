@@ -7,7 +7,7 @@ namespace qbert
 {
 	class QbertComponent;
 	
-	class Move : public dae::Command
+	class Move final : public dae::Command
 	{
 	public:
 		Move(QbertComponent* pQbertComp, id movePosition);

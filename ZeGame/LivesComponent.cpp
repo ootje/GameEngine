@@ -4,6 +4,7 @@
 
 #include "LevelManager.h"
 #include "LivesObserver.h"
+#include "TextComponent.h"
 
 qbert::LivesComponent::LivesComponent(dae::TextComponent* pTextComp, LivesObserver* pObserver)
 	:m_Lives{3}

@@ -10,13 +10,12 @@
 #include "SlickBehaviour.h"
 #include "UggBehaviour.h"
 
-qbert::EnemyManagerComponent::EnemyManagerComponent(const std::string& fileName, dae::Scene& scene)
+qbert::EnemyManagerComponent::EnemyManagerComponent(int gameMode, dae::Scene& scene)
 {
 	m_Elapsed = 0.0f;
 	m_Duration = 5.0f;
 	m_InactiveEnemy = true;
 	
-	std::string temp = fileName;
 	const float size = 40.f;
 	const LevelData& data = LevelManager::GetInstance().GetLevelData();
 	m_Enemies = std::vector<EnemyComponent*>();
@@ -61,13 +60,13 @@ qbert::EnemyManagerComponent::EnemyManagerComponent(const std::string& fileName,
 	auto coilyRender = new dae::RenderComponent("Coily.png", 0.f, 0.f, size, size);
 	coily->AddComponent(coilyRender, (int)dae::componentID::render);
 	EnemyBehaviour* coilyBeh = nullptr;
-	if (true)
+	if (gameMode == 2)
 	{
-		coilyBeh = new CoilyBehaviour();
+		coilyBeh = new PlayerCoilyBehaviour();
 	}
 	else
 	{
-		coilyBeh = new PlayerCoilyBehaviour();
+		coilyBeh = new CoilyBehaviour();
 	}
 	auto coilyComp = new EnemyComponent(id{ 1,data.blocksWide - 1 }, size, coilyBeh, coilyRender, true);
 	coily->AddComponent(coilyComp, (int)expandedComponentID::enemyComp);

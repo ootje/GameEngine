@@ -1,9 +1,6 @@
 #include "Helpers.h"
 
-#include "GameObject.h"
 #include "LevelManager.h"
-#include "RenderComponent.h"
-#include "TileComponent.h"
 
 
 qbert::position qbert::IdToPositionConverter(id id)
@@ -42,7 +39,6 @@ bool qbert::IsValidIdPositionEnemy(id testId)
 {
 	auto data = LevelManager::GetInstance().GetLevelData();
 	const int width = data.blocksWide;
-	const int offset = data.heightOffset;
 	id maxId{};
 	maxId.x = 1;
 	maxId.y = data.blocksWide - 1;

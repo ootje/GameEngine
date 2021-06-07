@@ -9,7 +9,7 @@ namespace dae {
 
 namespace qbert
 {
-	class EnemyComponent : public dae::BaseComponent
+	class EnemyComponent final : public dae::BaseComponent
 	{
 	public:
 		EnemyComponent(id startId,float size,EnemyBehaviour* pBehaviour, dae::RenderComponent* pRendercomp , bool isPurple, bool isReverting = false);
