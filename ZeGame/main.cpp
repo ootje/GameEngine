@@ -1,6 +1,6 @@
-#include <iostream>
 #include <Minigin.h>
-#include "vld.h"
+#include <iostream>
+//#include "vld.h"
 #include "LevelManager.h"
 
 int main(int, char* []) {

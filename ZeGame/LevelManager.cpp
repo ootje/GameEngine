@@ -25,6 +25,7 @@
 #include "rapidjson.h"
 #include "document.h"
 #include "filereadstream.h"
+#include <sstream>
 
 void qbert::LevelManager::LoadLevel(std::wstring path,int gameMode,int level)
 {
